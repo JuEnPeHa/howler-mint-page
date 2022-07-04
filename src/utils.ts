@@ -1,7 +1,7 @@
 import { connect, Contract, keyStores, WalletConnection } from 'near-api-js';
 import { getConfig } from './config';
 
-let nearConfig = getConfig('mainnet');
+let nearConfig = getConfig('testnet');
 const keyStore: keyStores.BrowserLocalStorageKeyStore = new keyStores.BrowserLocalStorageKeyStore();
 
 export async function initContract(): Promise<Contract> {
