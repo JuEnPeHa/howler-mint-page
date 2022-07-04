@@ -15,6 +15,20 @@ const handleMint = async () => {
 }
 
 function App() {
+
+    React.useEffect(
+      () => {
+        if (window.walletConnection.isSignedIn()) {
+          console.log("signed in");
+        } else if (!window.walletConnection.isSignedIn()) {
+          console.log("not signed in");
+        }
+      },
+      [
+        //window.walletConnection.isSignedIn()
+      ]
+    )
+
   return (
     <div className="App">
       <header className="App-header">
