@@ -1,6 +1,18 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { Button } from 'react-bootstrap';
+import axios from 'axios';
+
+const hc_db = axios.create({
+  baseURL: 'http://localhost:1996/api/ids',
+})
+
+const handleMint = async () => {
+  console.log('minting');
+  const id = await hc_db.get('/id')
+  console.log(id.data);
+}
 
 function App() {
   return (
@@ -10,14 +22,7 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Button aria-expanded={true} onClick={handleMint}>Mint</Button>
       </header>
     </div>
   );
