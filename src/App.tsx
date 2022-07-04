@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 import axios from 'axios';
 import { IdResponse } from './models/idResponse';
 import { login, logout } from './utils';
+import { FunctionCallOptions } from 'near-api-js/lib/account';
 
 const hc_db = axios.create({
   baseURL: 'http://localhost:1996/api/ids',
@@ -12,7 +13,18 @@ const hc_db = axios.create({
 
 function App() {
 
-
+  const nft_mint = (id: number) : FunctionCallOptions => {
+    return {
+  contractId: window.contract.contractId,
+  methodName: "nft_mint",
+  args:
+  {
+    "token_id": id,
+  },
+  gas: "300000000000000", 
+  attachedDeposit: BigInt(7650000000000000000000).toString(),
+    }
+  }
 
   const [loading, setLoading] = React.useState(false);
   const [id, setId] = React.useState('');
@@ -25,11 +37,12 @@ const handleSeparate = async () => {
   console.log('minting');
   const id = (await hc_db.get<IdResponse>(`/id?userId=${window.accountId}`)).data.id;
   console.log(id);
-
+  handleMint(id);
 }
 
-const handleMint = async () => {
-  
+const handleMint = async (id: number) => {
+  const response = await window.contract.account.functionCall(nft_mint(id));
+  console.log(response);
   if (minted) {
     setLoading(false);
     return;
@@ -72,7 +85,7 @@ const handleMint = async () => {
         <p style={{textAlign: 'center', marginTop: '2.5em'}}>
       ¡Bienvenido!
         </p>
-        <Button variant="primary" onClick={handleSeparate}>Mintear</Button>
+        <Button variant={!loading ? 'outline-success' : 'outline-danger'} disabled={loading} onClick={handleSeparate}>Mintear</Button>
         <Button variant="primary" onClick={logout}>Cerrar Sesión</Button>
         </main>
         </div>
