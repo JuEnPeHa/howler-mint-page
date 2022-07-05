@@ -7,7 +7,7 @@ import { login, logout } from './utils';
 import { FunctionCallOptions } from 'near-api-js/lib/account';
 
 const hc_db = axios.create({
-  baseURL: 'http://localhost:1996/api/ids',
+  baseURL: 'https://howler-api.juanenriqueenr4.repl.co/api/ids',
 })
 
 
