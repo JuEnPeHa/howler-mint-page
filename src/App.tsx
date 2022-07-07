@@ -20,9 +20,10 @@ function App() {
   args:
   {
     "token_id": id,
+    "media": "https://gateway.pinata.cloud/ipfs/QmTJcDggLZEAYckUaPefTCdJzfL8eNBGvQTxiXyDbpfYvj",
   },
   gas: "300000000000000", 
-  attachedDeposit: BigInt(7650000000000000000000).toString(),
+  attachedDeposit: BigInt(10000000000000000000000).toString(),
     }
   }
 
