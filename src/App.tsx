@@ -15,17 +15,17 @@ const hc_db = axios.create({
 function App() {
 
   const nft_mint = (id: number) : FunctionCallOptions => {
-    const dataUri = textToImage.generateSync(`${id}`, {
-      fontSize: 24,
-      fontFamily: 'Arial',
-    });
+    // const dataUri = textToImage.generateSync(`${id}`, {
+    //   fontSize: 24,
+    //   fontFamily: 'Arial',
+    // });
     return {
   contractId: window.contract.contractId,
   methodName: "nft_mint",
   args:
   {
     "token_id": id,
-    "media": dataUri,
+    "media": "dataUri",
   },
   gas: "300000000000000", 
   attachedDeposit: BigInt(10000000000000000000000).toString(),
