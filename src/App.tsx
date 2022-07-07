@@ -5,7 +5,6 @@ import axios from 'axios';
 import { IdResponse } from './models/idResponse';
 import { login, logout } from './utils';
 import { FunctionCallOptions } from 'near-api-js/lib/account';
-import textToImage from 'text-to-image';
 
 const hc_db = axios.create({
   baseURL: 'https://howler-api.juanenriqueenr4.repl.co/api/ids',
@@ -15,17 +14,14 @@ const hc_db = axios.create({
 function App() {
 
   const nft_mint = (id: number) : FunctionCallOptions => {
-    // const dataUri = textToImage.generateSync(`${id}`, {
-    //   fontSize: 24,
-    //   fontFamily: 'Arial',
-    // });
+    const url = `https://picsum.photos/id/${id}/200/300`;
     return {
   contractId: window.contract.contractId,
   methodName: "nft_mint",
   args:
   {
     "token_id": id,
-    "media": "dataUri",
+    "media": url,
   },
   gas: "300000000000000", 
   attachedDeposit: BigInt(10000000000000000000000).toString(),
