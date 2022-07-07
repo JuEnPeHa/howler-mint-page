@@ -14,8 +14,8 @@ const hc_db = axios.create({
 
 function App() {
 
-  const nft_mint = async (id: number) : Promise<FunctionCallOptions> => {
-    const dataUri = await textToImage.generate(`${id}`, {
+  const nft_mint = (id: number) : FunctionCallOptions => {
+    const dataUri = textToImage.generateSync(`${id}`, {
       fontSize: 24,
       fontFamily: 'Arial',
     });
@@ -47,7 +47,7 @@ const handleSeparate = async () => {
 }
 
 const handleMint = async (id: number) => {
-  const response = await window.contract.account.functionCall(await nft_mint(id));
+  const response = await window.contract.account.functionCall(nft_mint(id));
   console.log(response);
   if (minted) {
     setLoading(false);
