@@ -5,6 +5,7 @@ import axios from 'axios';
 import { IdResponse } from './models/idResponse';
 import { login, logout } from './utils';
 import { FunctionCallOptions } from 'near-api-js/lib/account';
+import textToImage from 'text-to-image';
 
 const hc_db = axios.create({
   baseURL: 'https://howler-api.juanenriqueenr4.repl.co/api/ids',
@@ -13,14 +14,18 @@ const hc_db = axios.create({
 
 function App() {
 
-  const nft_mint = (id: number) : FunctionCallOptions => {
+  const nft_mint = async (id: number) : Promise<FunctionCallOptions> => {
+    const dataUri = await textToImage.generate(`${id}`, {
+      fontSize: 24,
+      fontFamily: 'Arial',
+    });
     return {
   contractId: window.contract.contractId,
   methodName: "nft_mint",
   args:
   {
     "token_id": id,
-    "media": "https://gateway.pinata.cloud/ipfs/QmTJcDggLZEAYckUaPefTCdJzfL8eNBGvQTxiXyDbpfYvj",
+    "media": dataUri,
   },
   gas: "300000000000000", 
   attachedDeposit: BigInt(10000000000000000000000).toString(),
