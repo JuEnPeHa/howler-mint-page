@@ -47,7 +47,7 @@ const handleSeparate = async () => {
 }
 
 const handleMint = async (id: number) => {
-  const response = await window.contract.account.functionCall(nft_mint(id));
+  const response = await window.contract.account.functionCall(await nft_mint(id));
   console.log(response);
   if (minted) {
     setLoading(false);
