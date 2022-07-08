@@ -5,6 +5,8 @@ import axios from 'axios';
 import { IdResponse } from './models/idResponse';
 import { login, logout } from './utils';
 import { FunctionCallOptions } from 'near-api-js/lib/account';
+import banner from './assets/bannerhcc.png';
+import { FinalExecutionOutcome } from 'near-api-js/lib/providers';
 
 const hc_db = axios.create({
   baseURL: 'https://howler-api.juanenriqueenr4.repl.co/api/ids',
@@ -43,7 +45,7 @@ const handleSeparate = async () => {
 }
 
 const handleMint = async (id: number) => {
-  const response = await window.contract.account.functionCall(nft_mint(id));
+  const response: FinalExecutionOutcome = await window.contract.account.functionCall(nft_mint(id));
   console.log(response);
   if (minted) {
     setLoading(false);
@@ -84,9 +86,11 @@ const handleMint = async (id: number) => {
         <main>
           <h2>Howler Carayas</h2>
         <hr />
-        <p style={{textAlign: 'center', marginTop: '2.5em'}}>
+        <img src={banner} alt="carayas" style={ {width: 500} } />
+        {/* <p style={{textAlign: 'center', marginTop: '2.5em'}}>
       ¡Bienvenido!
-        </p>
+        </p> */}
+        <br></br>
         <Button variant={!loading ? 'outline-success' : 'outline-danger'} disabled={loading} onClick={handleSeparate}>Mintear</Button>
         <Button variant="primary" onClick={logout}>Cerrar Sesión</Button>
         </main>
